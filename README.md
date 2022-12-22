@@ -16,6 +16,7 @@ RecipeBook will be a hub to find your next recipe to try! This application allow
 
 ## API
 FoodData Central API - 1000 requests per hour per API key
+![](imgs/p2-proof-of-concept.png)
 
 ## ERD
 ![](imgs/p2erd.png)
