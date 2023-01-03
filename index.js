@@ -62,6 +62,8 @@ app.get('/', (req, res) => {
 
 app.use('/users', require('./controllers/users'))
 
+app.use('/recipes', require('./controllers/recipes'))
+
 app.listen(PORT, () => {
     console.log(`authenticating on PORT ${PORT}`)
 })
