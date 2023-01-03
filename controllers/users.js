@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
         //based on the info in the req.body, find or create user
         const [newUser, created] = await db.user.findOrCreate({
             where: {
+                username: req.body.username,
                 email: req.body.email
             }
         })
