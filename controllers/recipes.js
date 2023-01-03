@@ -12,6 +12,12 @@ router.get('/:id', (req, res) => {
     res.render('recipes/recipe.ejs')
 })
 
+router.post('/', (req,res) => {
+    res.redirect('/')
+})
 
+router.put('/:id', (req, res) => {
+    res.redirect(`/${req.params.id}`)
+})
 
 module.exports = router
