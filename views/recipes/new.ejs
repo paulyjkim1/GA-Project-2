@@ -6,28 +6,60 @@
     
 
     <label for="recipe_author">Username:</label>
-    <input type="text" class="form-control" id="recipe_author" name="recipe_name" value= <%= user.username >% required>
+    <input type="text" id="recipe_author" name="username" value= "<%= user.username %>" required>
+    <input hidden type="number" name="userId" value= "<%=user.id %>" required>
 
     <label for="recipe_name">Recipe Name:</label>
-    <input type="text" class="form-control" id="recipe_name" name="recipe_name" required>
+    <input type="text" id="recipe_name" name="recipe_name" required>
+    
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required>
 
+    <label for="cook_time">Cook Time:</label>
+    <input type="text" id="cook_time" name="cook_time" required>
 
-  <div class="form-group">
-    <label for="author">Author</label>
-    <select name="authorId" id="author" class="form-control" required>
-      <% authors.forEach(function(author) { %>
-        <option value="<%= author.id %>"><%= author.getFullName() %></option>
-      <% }) %>
-    </select>
-    <p>If your name doesn't show up, please <a href="/authors/new">sign up to be an author.</a></p>
-  </div>
+    <label for="servings">Servings:</label>
+    <input type="number" id="servings" name="servings" required>
 
-  <div class="form-group">
-    <label for="content">Content</label>
-    <textarea type="text" class="form-control" id="content" name="content" required></textarea>
-  </div>
+    <div>
+        <ul>
 
-  <input type="submit" class="btn btn-primary">
+        </ul>
+    </div>
+    <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
+    <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
+    <button id = "save" class="btn btn-success">Save ingredient</button>
+    <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
+
+    <label for="instructions">Instructions:</label>
+    <input type="text" id="instructions" name="instructions" required>
+    
+
+    <input type="submit">
 </form>
 
+<script>
+    let ingred = document.getElementById('ingred')  
+    let quant = document.getElementById('quant')  
+
+    let ingredList = ''
+    let quantList = ''
+    let ingredarray = []
+    let quantarray = []
+    let ingredient_list = document.getElementById('ingredient_list')
+    document.getElementById('save').addEventListener('click', function(e) {
+      e.preventDefault()
+      ingredList = ingredList + ingred.value + ','
+      quantList = quantList + quant.value + ','
+      ingred.value = ''
+      quant.value = ''
+      ingredarray = ingredList.split(',')
+      quantarray = quantList.split(',')
+      
+      ingredient_list.value = ingredList
+    })
+    
+    
+</script>
+    
 <%- include('../partials/footer') %>
