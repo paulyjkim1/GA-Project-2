@@ -30,6 +30,7 @@
     <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
     <button id = "save">Save ingredient</button>
     <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
+    <input id = 'quantities' hidden type="text" name="quantities">
 
     <label for="instructions">Instructions:</label>
     <input type="text" id="instructions" name="instructions" required>
@@ -49,7 +50,7 @@
     let ingredarray = []
     let quantarray = []
     let ingredient_list = document.getElementById('ingredient_list')
-    let counter = 0
+    let quantities = document.getElementById('quantities')
 
     document.getElementById('save').addEventListener('click', function(e) {
       e.preventDefault()
@@ -83,7 +84,7 @@
             ingredList = ingredarray.join()
             quantList = quantarray.join()
 
-            console.log(ingredarray)
+            console.log(ingredList)
             
             e.target.parentNode.remove()
         }
@@ -96,6 +97,7 @@
       }
       
       ingredient_list.value = ingredList
+      quantities.value = quantList
     })
 
 

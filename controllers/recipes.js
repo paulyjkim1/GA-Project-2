@@ -30,8 +30,24 @@ router.get('/:id', (req, res) => {
     res.render('recipes/recipe.ejs')
 })
 
-router.post('/', (req,res) => {
-    res.redirect('/')
+router.post('/', async (req,res) => {
+    try{
+        let post = await db.recipe.create({
+            userId: req.body.userId,
+            recipe_name: req.body.recipe_name,
+            cook_time: req.body.cook_time,
+            servings: req.body.servings,
+            description: req.body.description,
+            ingredient_list: req.body.ingredient_list,
+            quantities: req.body.quantities,
+            instructions: req.body.instructions
+        })
+        res.redirect('/')
+
+    }catch (err) {
+        console.log(error)
+        res.status(400).render('main/404')
+    }
 })
 
 router.put('/:id', (req, res) => {
