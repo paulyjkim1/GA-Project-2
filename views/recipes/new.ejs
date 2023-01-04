@@ -22,42 +22,74 @@
     <input type="number" id="servings" name="servings" required>
 
     <div>
-        <ul>
+        <ul id="showingred">
 
         </ul>
     </div>
     <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
     <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
-    <button id = "save" class="btn btn-success">Save ingredient</button>
+    <button id = "save">Save ingredient</button>
     <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
 
     <label for="instructions">Instructions:</label>
     <input type="text" id="instructions" name="instructions" required>
     
 
-    <input type="submit">
+    <button type="submit">Post</button>
 </form>
 
 <script>
     let ingred = document.getElementById('ingred')  
     let quant = document.getElementById('quant')  
+    let showingred = document.getElementById('showingred')
+    let deletebutton = document.querySelectorAll('.deleteBtn')
 
     let ingredList = ''
     let quantList = ''
     let ingredarray = []
     let quantarray = []
     let ingredient_list = document.getElementById('ingredient_list')
+    let counter = 0
+
     document.getElementById('save').addEventListener('click', function(e) {
       e.preventDefault()
-      ingredList = ingredList + ingred.value + ','
-      quantList = quantList + quant.value + ','
-      ingred.value = ''
-      quant.value = ''
-      ingredarray = ingredList.split(',')
-      quantarray = quantList.split(',')
+      if(ingred.value != '' && quant.value != ''){
+        ingredList = ingredList + ingred.value + ','
+        quantList = quantList + quant.value + ','
+        ingredarray = ingredList.split(',')
+        quantarray = quantList.split(',')
+        console.log(ingredarray)
+
+        let li = document.createElement('li')
+        let deleteBtn = document.createElement('button')
+        deleteBtn.innerText = 'Delete'
+        deleteBtn.setAttribute('class', 'deleteBtn')
+        
+        
+        li.innerText = quantarray[quantarray.length-2]+ ' ' + ingredarray[ingredarray.length-2]
+        li.appendChild(deleteBtn)
+        showingred.appendChild(li)
+
+        deleteBtn.onclick = function(e){
+            e.preventDefault()
+            e.target.parentNode
+            // e.target.parentNode.remove()
+        }
+        
+
+        ingred.value = ''
+        quant.value = ''
+      }
       
       ingredient_list.value = ingredList
     })
+
+
+    
+   
+    
+
+    
     
     
 </script>
