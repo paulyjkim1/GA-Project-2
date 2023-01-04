@@ -58,7 +58,6 @@
         quantList = quantList + quant.value + ','
         ingredarray = ingredList.split(',')
         quantarray = quantList.split(',')
-        console.log(ingredarray)
 
         let li = document.createElement('li')
         let deleteBtn = document.createElement('button')
@@ -72,9 +71,24 @@
 
         deleteBtn.onclick = function(e){
             e.preventDefault()
-            e.target.parentNode
-            // e.target.parentNode.remove()
+            let pn = e.target.parentNode
+            let index = 0
+            while(pn.previousElementSibling){
+                pn = pn.previousElementSibling;
+                index ++
+            }
+            console.log(index)
+            ingredarray.splice(index, 1)
+            quantarray.splice(index, 1)
+            ingredList = ingredarray.join()
+            quantList = quantarray.join()
+
+            console.log(ingredarray)
+            
+            e.target.parentNode.remove()
         }
+
+        
         
 
         ingred.value = ''
