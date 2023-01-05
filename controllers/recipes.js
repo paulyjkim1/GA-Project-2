@@ -51,8 +51,20 @@ router.post('/', async (req,res) => {
         ingredientArray.pop()
         console.log(ingredientArray)
         for(let i = 0; i<ingredientArray.length; i++) {
-            let response = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${api_key}&query=${ingredientArray[i]}&dataType=Survey (FNDDS)`)
-            console.log(response.data)
+            let response = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${api_key}&query=${ingredientArray[i]}&pageSize=5&dataType=Survey (FNDDS)`)
+            let foodsArray = response.data.foods
+            let fdcIDList = ''
+            foodsArray.forEach(function(food) {
+                fdcIDList = fdcIDList + food.fdcId + ','
+            })
+            fdcIDList = fdcIDList.substring(0, fdcIDList.length-1)
+
+            let ingredientPost = await db.ingredient.findOrCreate({
+                where: {
+                    ingredient_name: response.data.foodSearchCriteria.generalSearchInput,
+                    fdcID: fdcIDList
+                }
+            })
         }
         
     
