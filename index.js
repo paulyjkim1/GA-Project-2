@@ -8,7 +8,7 @@ const crypto = require('crypto-js')
 //app config
 const app = express()
 const PORT = process.env.PORT || 8000
-app.set('viewengine', 'ejs')
+app.set('view engine', 'ejs')
 // parse request bodies from the html forms
 app.use(express.urlencoded({ extended: false }))
 // tell express to parse incoming cookies
