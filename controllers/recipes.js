@@ -28,8 +28,18 @@ router.get('/new', async (req, res) => {
 })
 
 
-router.get('/:id', (req, res) => {
-    res.render('recipes/recipe.ejs')
+router.get('/:id', async (req, res) => {
+    try {
+        let recipe = await db.recipe.findOne({
+            where: { id: req.params.id },
+            include: [db.user, db.ingredient]
+        })
+        res.render('recipes/recipe.ejs', {recipe: recipe})
+    }catch (err) {
+        console.log(err)
+        res.status(400).render('main/404')
+    }
+   
 })
 
 router.post('/', async (req,res) => {
@@ -69,7 +79,7 @@ router.post('/', async (req,res) => {
         
     
 
-        res.redirect('/recipes')
+        res.redirect(`/recipes`)
 
     }catch (err) {
         console.log(err)
