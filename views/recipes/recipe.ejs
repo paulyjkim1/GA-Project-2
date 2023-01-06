@@ -1,6 +1,29 @@
 <%- include('../partials/header',{user}) %>
 
+
 <h1><%= recipe.recipe_name %></h1>
-<short> created by: recipe.</short>
+<short> created by: <%= recipe.user.username %></short>
+
+<h3>Description: <%=recipe.description%></h3>
+<h3>Cook Time: <%=recipe.cook_time %></h3>
+<h3>Servings: <%=recipe.servings%></h3>
+<h3>Ingredients: </h3>
+
+<ul id="ingredientul">
+    <% combined.forEach((index) => { %>
+        <li><%=index%></li>
+    <%})%>
+</ul>
+<h3>Instructions: <%=recipe.instructions%></h3>
+
+
+
+
+
+
+
+
+
+
 
 <%- include('../partials/footer') %>

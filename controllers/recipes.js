@@ -34,7 +34,15 @@ router.get('/:id', async (req, res) => {
             where: { id: req.params.id },
             include: [db.user, db.ingredient]
         })
-        res.render('recipes/recipe.ejs', {recipe: recipe})
+        let ingredients = recipe.dataValues.ingredient_list.split(',')
+        let quantities = recipe.dataValues.quantities.split(',')
+        ingredients.pop()
+        quantities.pop()
+        let combined = []
+        for (let i = 0; i <ingredients.length; i++){
+            combined.push(quantities[i]+' '+ingredients[i])
+        }
+        res.render('recipes/recipe.ejs', {recipe: recipe, combined: combined})
     }catch (err) {
         console.log(err)
         res.status(400).render('main/404')
