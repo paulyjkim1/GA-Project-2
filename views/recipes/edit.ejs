@@ -1,0 +1,43 @@
+<%- include('../partials/header',{user}) %>
+<h1>Edit <%=recipe.recipe_name%></h1>
+<form method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT" >
+    
+
+    <label for="recipe_author">Username:</label>
+    <input type="text" id="recipe_author" name="username" value="<%= recipe.user.username %>" required>
+    <input hidden type="number" name="userId" value= <%=recipe.user.id %> required>
+
+    <label for="recipe_name">Recipe Name:</label>
+    <input type="text" id="recipe_name" name="recipe_name" value="<%=recipe.recipe_name%>" required>
+    
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" value="<%=recipe.description%>" required>
+
+    <label for="cook_time">Cook Time:</label>
+    <input type="text" id="cook_time" name="cook_time" value="<%=recipe.cook_time%>" required>
+
+    <label for="servings">Servings:</label>
+    <input type="number" id="servings" name="servings" value=<%=recipe.servings%> required>
+
+    <div>
+        <ul id="showingred">
+            <%recipe.ingredients.forEach(ingredient => { %>
+                <li><%=ingredient.ingredient_name%></li>
+                <button id = "edit">edit</button>
+            <%})%>
+        </ul>
+    </div>
+    <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
+    <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
+    <button id = "save">Save ingredient</button>
+    <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
+    <input id = 'quantities' hidden type="text" name="quantities">
+
+    <label for="instructions">Instructions:</label>
+    <input type="text" id="instructions" name="instructions" value="<%=recipe.instructions%>" required>
+    
+
+    <button type="submit">Post</button>
+</form>
+
+<%- include('../partials/footer') %>

@@ -4,6 +4,8 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
 const crypto = require('crypto-js')
+const methodOverride = require("method-override")
+
 
 //app config
 const app = express()
@@ -13,6 +15,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 // tell express to parse incoming cookies
 app.use(cookieParser())
+app.use(methodOverride('_method'))
 
 //custom auth middleware that checks teh cookies for a user id and if it finds one then look up the user in the db
 //tell all downstream routes about this user

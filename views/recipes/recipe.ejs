@@ -3,20 +3,27 @@
 
 <h1><%= recipe.recipe_name %></h1>
 <short> created by: <%= recipe.user.username %></short>
+<% if(recipe.user.username === user.username){ %>
+    <form method="POST" action='/recipes/<%=recipe.id%>?_method=DELETE'>
+        <input hidden type="text" name="recipe_name" value="<%= recipe.recipe_name %>">
+        <button type="submit">Delete Recipe</button>
+    </form>
+    <a href="/recipes/<%= recipe.id %>/edit">Edit Recipe</a>
+<% } %>
 
 <h3>Description: <%=recipe.description%></h3>
 <h3>Cook Time: <%=recipe.cook_time %></h3>
 <h3>Servings: <%=recipe.servings%></h3>
 <h3>Ingredients: </h3>
+<a href="/recipes/<%=recipe.id%>/ingredients">Ingredient nutritional facts</a>
 
 <ul>
     <% combined.forEach((index) => { %>
         <li><%=index%></li>
     <%})%>
 </ul>
-<h3>Instructions: <%=recipe.instructions%></h3>
 
-<h3></h3>
+<h3>Instructions: <%=recipe.instructions%></h3>
 
 
 
