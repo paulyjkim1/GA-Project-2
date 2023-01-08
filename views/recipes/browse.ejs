@@ -1,6 +1,7 @@
 <%- include('../partials/header',{user}) %>
 
 <h1>Recipe Browse</h1>
+<a href="/recipes/new">Create a new Recipe</a>
 <% recipes.forEach(recipe => { %>
     <h2>
         <a href="/recipes/<%= recipe.id %>"><%= recipe.recipe_name%></a>

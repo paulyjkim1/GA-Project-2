@@ -19,25 +19,70 @@
     <label for="servings">Servings:</label>
     <input type="number" id="servings" name="servings" value=<%=recipe.servings%> required>
 
-    <div>
-        <ul id="showingred">
-            <%recipe.ingredients.forEach(ingredient => { %>
-                <li><%=ingredient.ingredient_name%></li>
-                <button id = "edit">edit</button>
-            <%})%>
-        </ul>
-    </div>
+    
+    <h2>Ingredients</h2>
     <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
     <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
-    <button id = "save">Save ingredient</button>
+    <button id = "save">Add extra ingredient</button>
+    <div id="updatedIngred">
+
+        <% let counter = 0%>   
+        <% for(let i = 0; i<ingredientsArray.length; i++){%>
+            <div>               
+                <input type = "text" name="ingred" value="<%=ingredientsArray[i]%>">
+                <input type = "text" name="quan" value="<%=quantitiesArray[i]%>">
+            </div>
+            <%counter++%>
+        <% } %>
+
+    </div>
+
+
+    
     <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
     <input id = 'quantities' hidden type="text" name="quantities">
+<div>
 
     <label for="instructions">Instructions:</label>
     <input type="text" id="instructions" name="instructions" value="<%=recipe.instructions%>" required>
+    <button type="submit">Post</button>
+</div>
     
 
-    <button type="submit">Post</button>
 </form>
+
+<script>
+    let ingred = document.getElementById('ingred')
+    let quan = document.getElementById('quant')
+    let updatedIngred = document.getElementById('updatedIngred')
+
+    document.getElementById('save').addEventListener('click', function(e) {
+      e.preventDefault()
+      if(ingred.value != '' && quan.value != ''){
+        
+        let createdDiv = document.createElement('div')
+        let ingredInputField = document.createElement('input')
+        let quanInputField = document.createElement('input')
+    
+        ingredInputField.setAttribute('type', 'text')
+        ingredInputField.setAttribute('name', 'ingred')
+        ingredInputField.setAttribute('value', ingred.value)
+        
+        quanInputField.setAttribute('type', 'text')
+        quanInputField.setAttribute('name', 'quan')
+        quanInputField.setAttribute('value', quan.value)
+        
+        createdDiv.appendChild(ingredInputField)
+        createdDiv.appendChild(quanInputField)
+        updatedIngred.appendChild(createdDiv)
+
+
+
+        ingred.value = ''
+        quant.value = ''
+      }
+      
+    })
+</script>
 
 <%- include('../partials/footer') %>
