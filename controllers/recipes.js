@@ -180,8 +180,6 @@ router.put('/:id', async(req, res) => {
                 id: req.params.id
             }
         })
-        
-
         res.redirect(`/recipes/${req.params.id}`)
 
     }catch (err) {
@@ -232,6 +230,23 @@ router.get('/:id/ingredients', async (req, res) => {
         let response = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods?api_key=${api_key}&fdcIds=${fdcIDlist}`)
 
         res.render('recipes/ingredients.ejs', {foundRecipe: foundRecipe, response: response})
+    }catch (err) {
+        console.log(err)
+        res.status(400).render('main/404')
+    }
+})
+
+router.post('/search', async (req, res) => {
+    try{
+        let foundRecipe = await db.recipe.findOne({
+            where: {recipe_name: req.body.recipeName}
+        })
+        if (foundRecipe != null){
+            res.redirect(`/recipes/${foundRecipe.id}`)
+        } else {
+            res.send('No recipe found')
+        }
+        
     }catch (err) {
         console.log(err)
         res.status(400).render('main/404')

@@ -6,31 +6,32 @@
 
 <%response.data.forEach(data => { %>
     <h4><%=data.description %></h4>
-    <ul>
+    <ul class = "list-group list-group-flush">
 
         <% let calorieIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf('Energy') %>
-        <li><%=data.foodNutrients[calorieIndex].nutrient.name%>: <%=data.foodNutrients[calorieIndex].amount%><%=data.foodNutrients[calorieIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[calorieIndex].nutrient.name%>: <%=data.foodNutrients[calorieIndex].amount%><%=data.foodNutrients[calorieIndex].nutrient.unitName%> per 100g </li>
 
         <% let proteinIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf('Protein') %>
-        <li><%=data.foodNutrients[proteinIndex].nutrient.name%>: <%=data.foodNutrients[proteinIndex].amount%><%=data.foodNutrients[proteinIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[proteinIndex].nutrient.name%>: <%=data.foodNutrients[proteinIndex].amount%><%=data.foodNutrients[proteinIndex].nutrient.unitName%> per 100g </li>
 
         <% let totalFatIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf(`Total lipid (fat)`) %>
-        <li><%=data.foodNutrients[totalFatIndex].nutrient.name%>: <%=data.foodNutrients[totalFatIndex].amount%><%=data.foodNutrients[totalFatIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[totalFatIndex].nutrient.name%>: <%=data.foodNutrients[totalFatIndex].amount%><%=data.foodNutrients[totalFatIndex].nutrient.unitName%> per 100g </li>
 
         <% let carbsIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf(`Carbohydrate, by difference`) %>
-        <li><%=data.foodNutrients[carbsIndex].nutrient.name%>: <%=data.foodNutrients[carbsIndex].amount%><%=data.foodNutrients[carbsIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[carbsIndex].nutrient.name%>: <%=data.foodNutrients[carbsIndex].amount%><%=data.foodNutrients[carbsIndex].nutrient.unitName%> per 100g </li>
 
         <% let fiberIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf(`Fiber, total dietary`) %>
-        <li><%=data.foodNutrients[fiberIndex].nutrient.name%>: <%=data.foodNutrients[fiberIndex].amount%><%=data.foodNutrients[fiberIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[fiberIndex].nutrient.name%>: <%=data.foodNutrients[fiberIndex].amount%><%=data.foodNutrients[fiberIndex].nutrient.unitName%> per 100g </li>
 
         <% let sugarIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf(`Sugars, total including NLEA`) %>
-        <li><%=data.foodNutrients[sugarIndex].nutrient.name%>: <%=data.foodNutrients[sugarIndex].amount%><%=data.foodNutrients[sugarIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[sugarIndex].nutrient.name%>: <%=data.foodNutrients[sugarIndex].amount%><%=data.foodNutrients[sugarIndex].nutrient.unitName%> per 100g </li>
 
         <% let sodiumIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf(`Sodium, Na`) %>
-        <li><%=data.foodNutrients[sodiumIndex].nutrient.name%>: <%=data.foodNutrients[sodiumIndex].amount%><%=data.foodNutrients[sodiumIndex].nutrient.unitName%> per 100g </li>
+        <li class="list-group-item"><%=data.foodNutrients[sodiumIndex].nutrient.name%>: <%=data.foodNutrients[sodiumIndex].amount%><%=data.foodNutrients[sodiumIndex].nutrient.unitName%> per 100g </li>
     </ul>
 
 <%})%>
+
 
 
 <%- include('../partials/footer') %>
