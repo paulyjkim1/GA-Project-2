@@ -1,11 +1,11 @@
 <%- include('../partials/header',{user}) %>
 
-<h1><%=foundRecipe.recipe_name%> ingredient info</h1>
+<h1 class="display-3"><%=foundRecipe.recipe_name%> Ingredient Info</h1>
 
 
 
 <%response.data.forEach(data => { %>
-    <h4><%=data.description %></h4>
+    <h4 class="margin"><%=data.description %></h4>
     <ul class = "list-group list-group-flush">
 
         <% let calorieIndex= data.foodNutrients.map(e => e.nutrient.name).indexOf('Energy') %>

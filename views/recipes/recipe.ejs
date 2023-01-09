@@ -1,15 +1,21 @@
 <%- include('../partials/header',{user}) %>
 
 
-<h1><%= recipe.recipe_name %></h1>
-<short> created by: <%= recipe.user.username %></short>
-<% if(recipe.user.username === user.username){ %>
-    <form method="POST" action='/recipes/<%=recipe.id%>?_method=DELETE'>
-        <input hidden type="text" name="recipe_name" value="<%= recipe.recipe_name %>">
-        <button type="submit">Delete Recipe</button>
-    </form>
-    <a href="/recipes/<%= recipe.id %>/edit">Edit Recipe</a>
-<% } %>
+<h1 class="display-5"><%= recipe.recipe_name %></h1>
+<div class="center">
+
+    <short> created by: <%= recipe.user.username %></short>
+</div>
+<div class="center">
+    <% if(user != null && recipe.user.username === user.username){ %>
+        <form method="POST" action='/recipes/<%=recipe.id%>?_method=DELETE'>
+            <input hidden type="text" name="recipe_name" value="<%= recipe.recipe_name %>">
+            <button type="submit">Delete Recipe</button>
+        </form>
+        <a href="/recipes/<%= recipe.id %>/edit">Edit Recipe</a>
+    <% }%>
+       
+</div>
 
 <h3>Description: <%=recipe.description%></h3>
 <h3>Cook Time: <%=recipe.cook_time %></h3>

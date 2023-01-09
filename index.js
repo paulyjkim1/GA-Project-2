@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }))
 // tell express to parse incoming cookies
 app.use(cookieParser())
 app.use(methodOverride('_method'))
+app.use(express.static('public'));
 
 //custom auth middleware that checks teh cookies for a user id and if it finds one then look up the user in the db
 //tell all downstream routes about this user
@@ -56,9 +57,15 @@ app.use((req, res, next) => {
 
 
 //routes and controllers
-app.get('/', (req, res) => {
-    console.log(res.locals.user)
+app.get('/about', (req, res) => {
+    
     res.render('home.ejs', {
+        user: res.locals.user
+    })
+})
+app.get('/', (req, res) => {
+    
+    res.render('entry.ejs', {
         user: res.locals.user
     })
 })

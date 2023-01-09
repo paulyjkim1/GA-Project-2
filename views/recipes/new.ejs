@@ -1,43 +1,71 @@
 <%- include('../partials/header',{user}) %>
 
-<h1>Create a new post</h1>
+<h1 class="display-5">Create a new recipe</h1>
 
-<form action="/recipes" method="POST">
+<div class="form-container">
+
+    <form class = 'row g-3 needs-validation' novalidate action="/recipes" method="POST">
+        
+        <div class="center">
+            <label for="recipe_author" class="form-label">Username:</label>
+            <input type="text" id="recipe_author" name="username" value= "<%= user.username %>" required>
+            <input hidden type="number" name="userId" value= "<%=user.id %>" required>
     
-
-    <label for="recipe_author">Username:</label>
-    <input type="text" id="recipe_author" name="username" value= "<%= user.username %>" required>
-    <input hidden type="number" name="userId" value= "<%=user.id %>" required>
-
-    <label for="recipe_name">Recipe Name:</label>
-    <input type="text" id="recipe_name" name="recipe_name" required>
+        </div>
+        <div class="center">
+            <label for="recipe_name" class="form-label">Recipe Name:</label>
+            <input type="text" id="recipe_name" name="recipe_name" required>
+        </div>
+        
+        <div class="center">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" id="description" name="description" required>
+        </div>
+        <div class="center">
+            <label for="cook_time" class="form-label">Cook Time:</label>
+            <input type="text" id="cook_time" name="cook_time" required>
+        </div>
     
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" required>
-
-    <label for="cook_time">Cook Time:</label>
-    <input type="text" id="cook_time" name="cook_time" required>
-
-    <label for="servings">Servings:</label>
-    <input type="number" id="servings" name="servings" required>
-
-    <div>
-        <ul id="showingred">
-
-        </ul>
-    </div>
-    <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
-    <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
-    <button id = "save">Save ingredient</button>
-    <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
-    <input id = 'quantities' hidden type="text" name="quantities">
-
-    <label for="instructions">Instructions:</label>
-    <input type="text" id="instructions" name="instructions" required>
+        <div class="center">
+            <label for="servings" class="form-label">Servings:</label>
+            <input type="number" id="servings" name="servings" required>
+            
+        </div>
     
+        
+        <div class="center">
+            <label for="ingred" class="form-label">Add ingredient:</label>
+            <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
+            <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
+            <button id = "save" class="btn btn-outline-dark">Save ingredient</button>
+            <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
+            <input id = 'quantities' hidden type="text" name="quantities">
+            
+        </div>
+        <div class="center">
+            <ul id="showingred">
+    
+            </ul>
+        </div>
+        
+        <div class="center">
+            <label for="instructions" class="form-label">Instructions:</label>
+            <input type="text" id="instructions" name="instructions" required>
+           
+        </div>
+        
+        <div class="center">
+            <button type="submit" class="btn btn-primary btn-lg">Post</button>
+        </div>
+    </form>
+</div>
 
-    <button type="submit">Post</button>
-</form>
+
+
+
+
+
+
 
 <script>
 
@@ -51,34 +79,45 @@
     let quantarray = []
     let ingredient_list = document.getElementById('ingredient_list')
     let quantities = document.getElementById('quantities')
-
+    // add event listener to ingredient save button and prevent default (which is to submit the form)
     document.getElementById('save').addEventListener('click', function(e) {
       e.preventDefault()
+      //take the value typed in for both ingredient input and quantity input and put them in a comma separated string
       if(ingred.value != '' && quant.value != ''){
         ingredList = ingredList + ingred.value + ','
         quantList = quantList + quant.value + ','
+        //comma separated strings to arrays
         ingredarray = ingredList.split(',')
         quantarray = quantList.split(',')
         
-
+        //every save click, display the ingredient and quantity, along with a delete button
         let li = document.createElement('li')
         let deleteBtn = document.createElement('button')
         deleteBtn.innerText = 'Delete'
         deleteBtn.setAttribute('class', 'deleteBtn')
-        
-        
         li.innerText = quantarray[quantarray.length-2]+ ' ' + ingredarray[ingredarray.length-2]
+        //important for delete button logic
         li.appendChild(deleteBtn)
         showingred.appendChild(li)
 
+        //add onclick to the delete button, prevent default again
         deleteBtn.onclick = function(e){
             e.preventDefault()
+            //if the button is clicked, it sets the li as a parent node
             let pn = e.target.parentNode
+
+            //while the parent node has a previous element sibling (other li's aka other ingredients), set the parent node to that previous sibling, increment index by 1, and repeat until no more previous siblings to the parent node.
+            
             let index = 0
             while(pn.previousElementSibling){
                 pn = pn.previousElementSibling;
                 index ++
             }
+            console.log(index)
+            //index will end up equaling the index of the ingredient in the ingredients array
+
+            // we use this index variable to splice out that ingredient (e.target.parentNode)from the array at that index since adding an ingredient pushes it to the end of the array (and also appending an li to the ul)
+
             console.log(index)
             ingredarray.splice(index, 1)
             quantarray.splice(index, 1)
@@ -87,6 +126,7 @@
             
             e.target.parentNode.remove()
         }
+        //every save ingredient reset the input value
         ingred.value = ''
         quant.value = ''
       }

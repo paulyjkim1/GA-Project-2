@@ -1,55 +1,65 @@
 <%- include('../partials/header',{user}) %>
-<h1>Edit <%=recipe.recipe_name%></h1>
-<form method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT" >
+<h1 class="display-5">Edit <%=recipe.recipe_name%></h1>
+
+<div class="form-container">
     
-
-    <label for="recipe_author">Username:</label>
-    <input type="text" id="recipe_author" name="username" value="<%= recipe.user.username %>" required>
-    <input hidden type="number" name="userId" value= <%=recipe.user.id %> required>
-
-    <label for="recipe_name">Recipe Name:</label>
-    <input type="text" id="recipe_name" name="recipe_name" value="<%=recipe.recipe_name%>" required>
+    <form class= 'row g-3 needs-validation' method="POST" action="/recipes/<%=recipe.id%>/?_method=PUT" >
+        
+        <div class="center">
+            <label for="recipe_author">Username:</label>
+            <input type="text" id="recipe_author" name="username" value="<%= recipe.user.username %>" required>
+            <input hidden type="number" name="userId" value= <%=recipe.user.id %> required>
+        </div>
+        <div class="center">
+            <label for="recipe_name">Recipe Name:</label>
+            <input type="text" id="recipe_name" name="recipe_name" value="<%=recipe.recipe_name%>" required>
+        </div>
+        <div class="center">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="<%=recipe.description%>" required>
+        </div>
+        <div class="center">
+            <label for="cook_time">Cook Time:</label>
+            <input type="text" id="cook_time" name="cook_time" value="<%=recipe.cook_time%>" required>
+        </div>
+        <div class="center">
+            <label for="servings">Servings:</label>
+            <input type="number" id="servings" name="servings" value=<%=recipe.servings%> required>
+        </div>
     
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="<%=recipe.description%>" required>
-
-    <label for="cook_time">Cook Time:</label>
-    <input type="text" id="cook_time" name="cook_time" value="<%=recipe.cook_time%>" required>
-
-    <label for="servings">Servings:</label>
-    <input type="number" id="servings" name="servings" value=<%=recipe.servings%> required>
-
     
-    <h2>Ingredients</h2>
-    <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
-    <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
-    <button id = "save">Add extra ingredient</button>
-    <div id="updatedIngred">
-
-        <% let counter = 0%>   
-        <% for(let i = 0; i<ingredientsArray.length; i++){%>
-            <div>               
-                <input type = "text" name="ingred" value="<%=ingredientsArray[i]%>">
-                <input type = "text" name="quan" value="<%=quantitiesArray[i]%>">
+    
+        
+        <h2 class="display-6">Ingredients</h2>
+        <div class="center">
+            <input id = 'ingred' type = "text" placeholder = "ingredient" name="ingredient">
+            <input id = 'quant' type = "text" placeholder = "quantity" name="quantity">
+            <button id = "save">Add extra ingredient</button>
+            <div id="updatedIngred">
+        
+                <% let counter = 0%>   
+                <% for(let i = 0; i<ingredientsArray.length; i++){%>
+                    <div>               
+                        <input type = "text" name="ingred" value="<%=ingredientsArray[i]%>">
+                        <input type = "text" name="quan" value="<%=quantitiesArray[i]%>">
+                    </div>
+                    <%counter++%>
+                <% } %>
+        
             </div>
-            <%counter++%>
-        <% } %>
-
-    </div>
-
-
+            <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
+            <input id = 'quantities' hidden type="text" name="quantities">
+        </div>
+        <div class="center">
+        
+            <label for="instructions">Instructions:</label>
+            <input type="text" id="instructions" name="instructions" value="<%=recipe.instructions%>" required>
+            <button type="submit">Post</button>
+        </div>
+        
     
-    <input id = 'ingredient_list' hidden type="text" name="ingredient_list">
-    <input id = 'quantities' hidden type="text" name="quantities">
-<div>
-
-    <label for="instructions">Instructions:</label>
-    <input type="text" id="instructions" name="instructions" value="<%=recipe.instructions%>" required>
-    <button type="submit">Post</button>
+    </form>
 </div>
-    
-
-</form>
 
 <script>
     let ingred = document.getElementById('ingred')
