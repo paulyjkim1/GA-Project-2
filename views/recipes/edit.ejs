@@ -37,13 +37,15 @@
             <button id = "save">Add extra ingredient</button>
             <div id="updatedIngred">
         
-                <% let counter = 0%>   
+               <!-- make two input fields for every ingredient in the recipe -->
+               <!-- found out that since all the inputs have the same name (ingred and quan) all the ingredients can be accessed as an array with req.body.ingred and req.body.quan -->
+               <!-- no need to update ingredient_list because we can just make it with req.body.ingred.join() in the js -->
                 <% for(let i = 0; i<ingredientsArray.length; i++){%>
                     <div>               
                         <input type = "text" name="ingred" value="<%=ingredientsArray[i]%>">
                         <input type = "text" name="quan" value="<%=quantitiesArray[i]%>">
                     </div>
-                    <%counter++%>
+                    
                 <% } %>
         
             </div>
@@ -65,9 +67,10 @@
     let ingred = document.getElementById('ingred')
     let quan = document.getElementById('quant')
     let updatedIngred = document.getElementById('updatedIngred')
-
+    //similar to new.ejs, add event listner to save button and prevent default
     document.getElementById('save').addEventListener('click', function(e) {
       e.preventDefault()
+      //for adding ingredients
       if(ingred.value != '' && quan.value != ''){
         
         let createdDiv = document.createElement('div')
